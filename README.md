@@ -1,4 +1,4 @@
-# Local Inventory & Pre-Order Portal — Nyama Fresh Butchery
+# Meat Fresh Butchery — Local Inventory & Pre-Order Portal
 
 A modern, client-side single-page web application (SPA) built with vanilla HTML, CSS, and JavaScript using ES modules. All inventory, pre-orders, and cart sessions persist directly in the browser's `localStorage` — with **no server, no database, and no login required**.
 
@@ -71,3 +71,4 @@ Right-click `index.html` and select **"Open with Live Server"**.
    No raw `innerHTML` string interpolation. Elements are constructed using `document.createElement` via `createEl()` to avoid XSS vectors.
 4. **Zero Configuration**:
    Pre-loaded with realistic demo products and sample pre-orders for Nyama Fresh Butchery. A "Reset All Data" option is available in the Admin Settings panel for clean testing.
+
