@@ -1,0 +1,93 @@
+[
+  {
+    "index": 1,
+    "id": "99ce238005ef4898a06c86da564d00b9",
+    "slug": "01_customer_storefront",
+    "name": "Nyama Fresh Butchery - Customer Storefront",
+    "title": "Nyama Fresh Butchery - Customer Storefront",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1W28jq07cq-n0IaTpael7oCfunFTjU6QC9c0k_Zd_askgEYvgGaeQNFgfmzzpW3W1uOOldo-aGzzPSy2nLW5qX2CEfTFlFA9-Zj3t8vzcTzY-JYUsVpDg_-dbtFFFFxgDTgLraUzWNSj8WUgafByvT5xe2KO4PuWTud8m55f2ztZBP_DQU_W-vbwscU6hewwZglaXx3FzXAuVk_s9NHCun3meb3X1bi-ZWsfJJISoN7Ci-QwAaF4z9QKhsI",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmFmZjQxZWJjOGYwMzU2ZWFmZDQ0MzI2MzJhEgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "01_customer_storefront.png",
+    "htmlPath": "01_customer_storefront.html",
+    "imgBytes": 137626,
+    "htmlBytes": 59409
+  },
+  {
+    "index": 2,
+    "id": "97b380187b13491c9abaa86edc73e50d",
+    "slug": "02_preorder_drawer_checkout",
+    "name": "Nyama Fresh Butchery - Pre-Order Drawer & Checkout",
+    "title": "Nyama Fresh Butchery - Pre-Order Drawer & Checkout",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1WjTA3nicXfhmj84EOtR_Zf6JGVlUBjJyIc4kuQOEOZWHThR6pFATZ76YR-LGja8I4cZz4nU9qSrCtAMsL8fhVwr3ciLDZsaTgyroP-E4aeVVHVycfByiv1D9D6-nxG-iITsrJd5W2i4QzQ3tGONII0_1fFZsNidmMEEX3ZRTCVQLur3IY9g4fP_IfmmspUFouQ6DUOlMb4IA_ma9uKCk4YTZZoi87iTEVYaII0RQ94KS6nFSaq6842q1bp",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwMTBhODc4ODkwNGU3NGFiZDA0MTFjNjk5EgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "02_preorder_drawer_checkout.png",
+    "htmlPath": "02_preorder_drawer_checkout.html",
+    "imgBytes": 63598,
+    "htmlBytes": 21023
+  },
+  {
+    "index": 3,
+    "id": "3ce47b7db97a4e31890131533e38230e",
+    "slug": "03_order_confirmation_receipt",
+    "name": "Nyama Fresh Butchery - Order Confirmation & Receipt",
+    "title": "Nyama Fresh Butchery - Order Confirmation & Receipt",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VU6NzCeP-kEZW6QBwWddaqS5pVMluEiX6Hcef-ruXEYQlZV76HbOciWtUHR-n_lEMYkMA82MM2xlyNgpJbQcpUyZ-OqwtHF37nNuD4uiQcuppDChUZD6F05KQxC9Ruzx90D363RjcdS-IPVtXE6gruo4mrZHDtgaBz-CF7Xw25cu_AwKlnkJcPB9VeVNKFcuYOvPTtVvWaNhoQ92o83zLg3_ryq0NSlGnCazUurjYU2H606EWO_7t4IBiM",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwMjBjODJiOGEwNWYxMDk3YjQ5MjgyMDg2EgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "03_order_confirmation_receipt.png",
+    "htmlPath": "03_order_confirmation_receipt.html",
+    "imgBytes": 66599,
+    "htmlBytes": 37199
+  },
+  {
+    "index": 4,
+    "id": "bf82cb6cdb6c431c9c3d22ca929ab446",
+    "slug": "04_admin_inventory_dashboard",
+    "name": "Nyama Fresh Butchery - Admin Inventory Dashboard",
+    "title": "Nyama Fresh Butchery - Admin Inventory Dashboard",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VMNAJZzQofuFzbzIPvU0miFMn31sCR_n6Q4e2h5tXPzjuHrRscxVQ_-td-d_jTf11TVIcY-k-DQUslckzV-90zsAswnGvjg6bu_1oqB57PKFbGCTxKE2HvnyXDyOD5BVoir0C6zp6Es0YebLLcUyl9vS1RqV2XRHfrfsfk82pokpheG9f4GgPaGyIZWseciQDx2Eu2gs-aqhXu78dL8QIRq01PI5eQBg_JBBr11e37NF6RJwW8Qo-WWRkY",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwNWU4ZWJmODUwMjNiZWU1MjMxMjVjMzFhEgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "04_admin_inventory_dashboard.png",
+    "htmlPath": "04_admin_inventory_dashboard.html",
+    "imgBytes": 93474,
+    "htmlBytes": 34799
+  },
+  {
+    "index": 5,
+    "id": "180a0e7d967148f996fd6691ff8ad6fa",
+    "slug": "05_admin_add_edit_product_modal",
+    "name": "Nyama Fresh Butchery - Admin Add / Edit Product Modal",
+    "title": "Nyama Fresh Butchery - Admin Add / Edit Product Modal",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1W1ScgD2sxgI8UVYEKZgk-u7hOOCuefEPERRGzMh8CoxB2067eB6mRTG0fd8f4gZn9e1R80LeiQw9MF-o6QTZde4H-Z_5-yarfYLWCFZk_Qhctfp5syEabCyimgFCrZAd_ACtbb1I87rPF5z8Ix4ZMZhjmfkYw2QzAxKOrDvHN0ARlIFTlfzEVyYkm5rzrox-gJp48F_zxfNeQkrl61WMmAXqI1vW4r8buJHgA3Y7bB21v2ese8QL_yELfE",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwNzI3ZDUyMjQwNWYxMTc2NzAzMWJiYmIzEgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "05_admin_add_edit_product_modal.png",
+    "htmlPath": "05_admin_add_edit_product_modal.html",
+    "imgBytes": 87743,
+    "htmlBytes": 43160
+  },
+  {
+    "index": 6,
+    "id": "b2328334c25b45059ef1ac024f52551b",
+    "slug": "06_admin_preorders_dashboard",
+    "name": "Nyama Fresh Butchery - Admin Pre-Orders Management Dashboard",
+    "title": "Nyama Fresh Butchery - Admin Pre-Orders Management Dashboard",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1UDJgjOpH6pWYI6fOSBDV477ivu5jmXZJc50TP_NImYAndMHWtwo0PnZQlGfsijuxydXwyNdmgIWmGeqpCDDl5141nKUXPw0uNLbqfl3x4bTMblms-lpw_Ij13hjy-rxVs8e3m_dNl0NPdrAe4AjwEWFyQsBch0Y_RKtX_O2xgyLuuFpnJqGbfcHKgefcN1myeMwZRsyC8mabDO6zlELy2i9KjsLG2kccTsB15YT7vHOQh0wXdHKUeCGYI",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwN2Y0YjIwOTIwOTY4YWY1MDJmMDI0YTMyEgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "06_admin_preorders_dashboard.png",
+    "htmlPath": "06_admin_preorders_dashboard.html",
+    "imgBytes": 65143,
+    "htmlBytes": 50307
+  },
+  {
+    "index": 7,
+    "id": "31bf9897df4b41acb07b70cf2d4a1a88",
+    "slug": "07_admin_settings_data_reset",
+    "name": "Nyama Fresh Butchery - Admin Settings & Data Reset Panel",
+    "title": "Nyama Fresh Butchery - Admin Settings & Data Reset Panel",
+    "imgUrl": "https://lh3.googleusercontent.com/aida/AEtjO1XnC6T-sRDci3h-16GoyV6ExoQaj1137BjXEDC07QcMmlUCxCcsKwqSNRR3Odpo5ZcPl6AQ_986hKkyR0otRwn5OgiMbpNKJ4Y7IBIKqr3Ww3PlqjpWE-d7di6aUOXvMf8TFU_AsecEV8cHcMre2l9JNBlM-XEEJeyMgaJO9poD6jVsgFK9VoY-JEtET_X1d0DALY5udHpFc4GpI2shUgdu3bcmW_NdJur1BXNUwkURZqB61HXPV1r1DrYB",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzAwMDY1YmIwOGI2Y2UyMjUwOTY4YTBiOTk5MmU5OWNkEgsSBxCMkvX7-R4YAZIBJAoKcHJvamVjdF9pZBIWQhQxNzIxODg2ODIzMDAyMzcwMTI5NA&filename=&opi=89354086",
+    "imgPath": "07_admin_settings_data_reset.png",
+    "htmlPath": "07_admin_settings_data_reset.html",
+    "imgBytes": 78608,
+    "htmlBytes": 47641
+  }
+]

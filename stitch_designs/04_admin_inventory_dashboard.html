@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+<html lang="sw">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Nyama Fresh Butchery - Admin Inventory Dashboard</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: {
+              50: '#fdf3f3',
+              100: '#fbe4e4',
+              200: '#f6cece',
+              500: '#b92828',
+              700: '#8a1c1c',
+              800: '#731616',
+              900: '#5c1212',
+            },
+            surface: {
+              DEFAULT: '#fbf8ff',
+              dim: '#f1effa',
+              card: '#ffffff',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Custom Styles: General & Utilities -->
+  <style data-purpose="base-styling">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-[#f8fafc] text-slate-800 antialiased">
+  <!-- BEGIN: AdminTopNavigation -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40" data-purpose="admin-top-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Left: Logo & Identity Badge -->
+        <div class="flex items-center space-x-3">
+          <div class="flex items-center space-x-2.5">
+            <img alt="Nyama Fresh Butchery Logo" class="h-9 w-auto rounded"
+              src="https://lh3.googleusercontent.com/aida/AEtjO1WjrKwCoJy-EfF1zKmldQtbytzlFEF6_qGOgHg4ifRxeH1E3jWIXZMvcAJrAN31vl0VVtZS7AxBbmMdEySHp77bK57SiKJpLdvM6Vk5yVQq-ZTqQZ0XP6MRkkK0pq_rK5LNmoadcZOzL-Z6Ttxk4fT9G1mYM_4R-qHHt7EFcmoqR6B2BK_Nukx67EhvB74AwIFXVJ6qae0Pyp5Yc_6Iz-Mgbt1CCjKFzzS2w46BSa6AZjDLDFqRNoIqQMc" />
+            <div class="flex flex-col">
+              <span class="font-extrabold text-slate-900 text-sm leading-tight tracking-wide uppercase">Manager
+                Portal</span>
+              <span class="text-[10px] font-semibold text-maroon-700 tracking-wider">DAR ES SALAAM • KARIAKOO</span>
+            </div>
+          </div>
+          <span
+            class="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-maroon-50 text-maroon-700 border border-maroon-200">
+            Mwenye Duka Mode (Owner Mode)
+          </span>
+        </div>
+        <!-- Center: Main Navigation Tabs -->
+        <nav aria-label="Main Navigation" class="hidden lg:flex items-center space-x-1" data-purpose="nav-tabs">
+          <!-- Active Tab: Mzigo / Inventory -->
+          <a class="inline-flex items-center px-3.5 py-2 text-sm font-bold text-maroon-700 border-b-2 border-maroon-700 space-x-2"
+            href="#">
+            <span>Mzigo / Inventory</span>
+            <span class="px-2 py-0.5 text-xs rounded-full bg-maroon-100 text-maroon-800 font-bold">18</span>
+          </a>
+          <!-- Oda / Pre-Orders Tab -->
+          <a class="inline-flex items-center px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300 space-x-2 transition-colors"
+            href="#">
+            <span>Oda / Pre-Orders</span>
+            <span class="px-2 py-0.5 text-xs rounded-full bg-amber-100 text-amber-800 font-bold">5</span>
+          </a>
+          <!-- Ripoti & Mauzo Tab -->
+          <a class="inline-flex items-center px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300 transition-colors"
+            href="#">
+            <span>Ripoti &amp; Mauzo</span>
+          </a>
+          <!-- Mipangilio Tab -->
+          <a class="inline-flex items-center px-3.5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300 transition-colors"
+            href="#">
+            <span>Mipangilio / Settings</span>
+          </a>
+        </nav>
+        <!-- Right: Actions & User Info -->
+        <div class="flex items-center space-x-3">
+          <a class="hidden sm:inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition border border-slate-200"
+            href="#" target="_blank">
+            <span>👁️ Angalia Duka la Mteja</span>
+            <svg class="ml-1.5 w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+          </a>
+          <!-- User Avatar & Status -->
+          <div class="flex items-center space-x-2 pl-2 border-l border-slate-200">
+            <div class="relative">
+              <div
+                class="w-8 h-8 rounded-full bg-maroon-700 text-white flex items-center justify-center font-bold text-xs">
+                MK
+              </div>
+              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white"
+                title="Online"></span>
+            </div>
+            <div class="hidden xl:block text-left text-xs">
+              <div class="font-bold text-slate-800">Msimamizi wa Stoo</div>
+              <div class="text-[11px] text-slate-500">Kariakoo Counter</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- END: AdminTopNavigation -->
+  <!-- BEGIN: MainContentArea -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <!-- BEGIN: HeaderAndMeta -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 border-b border-slate-200 pb-5"
+      data-purpose="page-title-section">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+          <span>Usimamizi wa Mzigo &amp; Stoo</span>
+          <span
+            class="text-sm font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 hidden sm:inline-block">Inventory</span>
+        </h1>
+        <p class="text-slate-600 text-sm mt-1">
+          Fuatilia uzito wa nyama ya mbuzi, ng'ombe na kuku dukani Kariakoo Msimbazi kwa wakati halisi.
+        </p>
+      </div>
+      <div
+        class="flex items-center gap-2 text-xs text-slate-500 bg-white px-3.5 py-2 rounded-lg border border-slate-200 self-start md:self-auto shadow-sm">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Mzigo uliorekebishwa: <strong class="text-slate-700 font-semibold">Leo, 06:15 Asubuhi</strong> • Seva ya
+          Kariakoo #1</span>
+      </div>
+    </div>
+    <!-- END: HeaderAndMeta -->
+    <!-- BEGIN: KpiMetricsCards -->
+    <section aria-label="Takwimu Kuu za Mzigo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+      data-purpose="kpi-cards">
+      <!-- Metric 1: Total Products -->
+      <article class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Jumla ya Bidhaa</span>
+          <div
+            class="w-8 h-8 rounded-lg bg-red-50 text-maroon-700 flex items-center justify-center font-bold text-base">
+            🥩
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="text-3xl font-extrabold text-slate-900">18</div>
+          <p class="text-xs text-slate-500 mt-1">Makundi 4: Mbuzi, Ng'ombe, Kuku, Kusaga</p>
+        </div>
+      </article>
+      <!-- Metric 2: Live Weight -->
+      <article class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Jumla ya Kilo Zilizopo</span>
+          <div
+            class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-base">
+            ⚖️
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="text-3xl font-extrabold text-slate-900">142.5 <span
+              class="text-base font-semibold text-slate-500">kg</span></div>
+          <p class="text-xs text-emerald-600 font-semibold mt-1 flex items-center">
+            <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M5 10l7-7m0 0l7 7m-7-7v18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+              </path>
+            </svg>
+            +18 kg mzigo mpya leo alfajiri
+          </p>
+        </div>
+      </article>
+      <!-- Metric 3: Low Stock Warning -->
+      <article class="bg-amber-50/50 rounded-xl p-4 border border-amber-200 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Tahadhari ya Mzigo Kuisha</span>
+          <div
+            class="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-base">
+            ⚠️
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="text-3xl font-extrabold text-amber-900">3 <span
+              class="text-base font-medium text-amber-800">Bidhaa</span></div>
+          <p class="text-xs text-amber-700 font-medium mt-1">Zinahitaji kuongezwa haraka (&lt; 5 kg)</p>
+        </div>
+      </article>
+      <!-- Metric 4: Pending Orders -->
+      <article class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Oda za Leo Zinazosubiri</span>
+          <div
+            class="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center font-bold text-base">
+            📋
+          </div>
+        </div>
+        <div class="mt-3">
+          <div class="text-3xl font-extrabold text-slate-900">5 <span
+              class="text-base font-medium text-slate-500">Oda</span></div>
+          <p class="text-xs text-slate-600 mt-1">
+            Thamani: <span class="font-bold text-maroon-700 bg-maroon-50 px-1.5 py-0.5 rounded">TZS 312,000</span>
+          </p>
+        </div>
+      </article>
+    </section>
+    <!-- END: KpiMetricsCards -->
+    <!-- BEGIN: ToolbarAndFilters -->
+    <section class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-3.5"
+      data-purpose="inventory-toolbar">
+      <!-- Row 1: Search, Dropdown & Primary CTAs -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Search bar -->
+        <div class="relative flex-1 max-w-md">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="2"></path>
+            </svg>
+          </div>
+          <input
+            class="w-full pl-10 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-maroon-700 focus:border-maroon-700 placeholder-slate-400"
+            placeholder="Tafuta bidhaa kwa jina au SKU (mfano: Mbuzi, NG-007)..." type="text" />
+        </div>
+        <!-- Category Dropdown Select -->
+        <div class="flex items-center space-x-2">
+          <select aria-label="Chagua Kundi la Nyama"
+            class="text-sm border border-slate-300 rounded-lg py-2 px-3 text-slate-700 focus:ring-2 focus:ring-maroon-700 focus:border-maroon-700 bg-white">
+            <option value="all">Makundi Yote (All Categories)</option>
+            <option value="mbuzi">Nyama ya Mbuzi (Goat)</option>
+            <option value="ngombe">Nyama ya Ng'ombe (Beef)</option>
+            <option value="kienyeji">Kuku wa Kienyeji</option>
+            <option value="broiler">Kuku Broiler</option>
+            <option value="supu">Supu &amp; Mifupa</option>
+          </select>
+        </div>
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-2">
+          <!-- Export Button -->
+          <button
+            class="inline-flex items-center px-3.5 py-2 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition"
+            type="button">
+            <svg class="w-3.5 h-3.5 mr-1.5 text-slate-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round"
+                stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            Pakua Ripoti (Excel/PDF)
+          </button>
+          <!-- Add Product Button -->
+          <button
+            class="inline-flex items-center px-4 py-2 text-xs font-bold rounded-lg bg-maroon-700 hover:bg-maroon-800 text-white shadow-sm transition"
+            type="button">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+              <path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+            </svg>
+            + Ongeza Bidhaa Mpya
+          </button>
+        </div>
+      </div>
+      <!-- Row 2: Status Filter Pills -->
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+        <span class="text-xs font-semibold text-slate-500 mr-1">Chuja kwa Hali:</span>
+        <button class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-slate-900 text-white"
+          type="button">
+          Zote (18)
+        </button>
+        <button
+          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition"
+          type="button">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+          Ipo Dukani (14)
+        </button>
+        <button
+          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition"
+          type="button">
+          <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+          Mzigo Unaisha (&lt; 5 kg) (3)
+        </button>
+        <button
+          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition"
+          type="button">
+          <span class="w-2 h-2 rounded-full bg-rose-500 mr-1.5"></span>
+          Imeisha Dukani (1)
+        </button>
+      </div>
+    </section>
+    <!-- END: ToolbarAndFilters -->
+    <!-- BEGIN: InventoryDataTableSection -->
+    <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden"
+      data-purpose="inventory-table-wrapper">
+      <div class="overflow-x-auto custom-scrollbar">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr
+              class="bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500 border-b border-slate-200">
+              <th class="py-3.5 pl-4 pr-3 sm:pl-6" scope="col">BIDHAA &amp; SKU</th>
+              <th class="px-3 py-3.5" scope="col">AINA / KUNDI</th>
+              <th class="px-3 py-3.5" scope="col">BEI KWA KIPIMO</th>
+              <th class="px-3 py-3.5" scope="col">MZIGO ULIOPO</th>
+              <th class="px-3 py-3.5" scope="col">HALI YA STOO</th>
+              <th class="px-3 py-3.5" scope="col">TAREHE YA UKATAJI</th>
+              <th class="py-3.5 pl-3 pr-4 sm:pr-6 text-right" scope="col">VITENDO</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <!-- ROW 1: Nyama ya Mbuzi Bila Mfupa -->
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-red-100 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden">
+                    🐐
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 leading-snug">Nyama ya Mbuzi Bila Mfupa</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">MB-014</span>
+                      <span>• Dodoma Grade A • Yenye minofu</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800 border border-amber-200">
+                  Mbuzi
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 14,000</div>
+                <div class="text-[11px] text-slate-500">kwa kilo 1</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900 text-sm">8.0 kg</div>
+                <!-- Mini Progress Visual -->
+                <div class="w-24 bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 40%"></div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+                  Ipo Dukani
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-600">
+                Leo, 05:30 Asubuhi
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-1.5">
+                  <button class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded"
+                    title="Rekebisha uzito haraka (+/-)" type="button">
+                    <span class="text-xs font-bold px-1 py-0.5 bg-slate-100 rounded border border-slate-300">± kg</span>
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded"
+                    title="Hariri Bidhaa" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded" title="Futa Bidhaa"
+                    type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- ROW 2: Mbavu za Ng'ombe (Prime Ribs) -->
+            <tr class="hover:bg-slate-50/80 transition-colors bg-amber-50/20">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-red-100 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden">
+                    🥩
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 leading-snug">Mbavu za Ng'ombe (Prime Ribs)</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">NG-007</span>
+                      <span>• Kongwa Beef • Mafuta ya wastani</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-maroon-700 border border-red-200">
+                  Ng'ombe
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 10,500</div>
+                <div class="text-[11px] text-slate-500">kwa kilo 1</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-amber-700 text-sm">2.0 kg</div>
+                <!-- Warning Visual Bar -->
+                <div class="w-24 bg-amber-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div class="bg-amber-500 h-1.5 rounded-full" style="width: 15%"></div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-600 mr-1.5 animate-pulse"></span>
+                  Mzigo Unaisha (&lt; 5 kg)
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-600">
+                Leo, 05:45 Asubuhi
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-1.5">
+                  <button class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded"
+                    title="Rekebisha uzito" type="button">
+                    <span
+                      class="text-xs font-bold px-1 py-0.5 bg-amber-100 text-amber-800 rounded border border-amber-300">±
+                      kg</span>
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded" title="Hariri"
+                    type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded" title="Futa"
+                    type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- ROW 3: Kuku wa Kienyeji Halisi -->
+            <tr class="hover:bg-slate-50/80 transition-colors bg-rose-50/30">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-orange-100 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden opacity-75">
+                    🍗
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-800 leading-snug">Kuku wa Kienyeji Halisi</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">KK-001</span>
+                      <span>• Morogoro • Mzima aliyesafishwa</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-50 text-orange-800 border border-orange-200">
+                  Kuku
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 16,000</div>
+                <div class="text-[11px] text-slate-500">kwa kipande / kuku</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-rose-600 text-sm">0 vipande</div>
+                <div class="w-24 bg-slate-200 rounded-full h-1.5 mt-1"></div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5"></span>
+                  Imeisha Dukani (Sold Out)
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-500">
+                Jana, 16:00 Jioni
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-2">
+                  <button
+                    class="px-2.5 py-1 text-xs font-bold text-maroon-700 border border-maroon-300 rounded hover:bg-maroon-50 transition"
+                    type="button">
+                    + Ongeza Mzigo
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- ROW 4: Mapaja ya Kuku Broiler -->
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-orange-100 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden">
+                    🍗
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 leading-snug">Mapaja ya Kuku Broiler</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">KK-018</span>
+                      <span>• Tray ya kilo 1 • Tayari kupika</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-50 text-orange-800 border border-orange-200">
+                  Kuku
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 9,000</div>
+                <div class="text-[11px] text-slate-500">kwa kilo 1</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900 text-sm">15.0 kg</div>
+                <div class="w-24 bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 75%"></div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+                  Ipo Dukani
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-600">
+                Leo, 06:00 Asubuhi
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-1.5">
+                  <button class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded" type="button">
+                    <span class="text-xs font-bold px-1 py-0.5 bg-slate-100 rounded border border-slate-300">± kg</span>
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- ROW 5: Nyama ya Kusaga (Lean Beef) -->
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-red-100 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden">
+                    🥩
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 leading-snug">Nyama ya Kusaga (Lean Beef)</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">NG-012</span>
+                      <span>• 90/10 Lean • Kusaga safi ya mashine</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-maroon-700 border border-red-200">
+                  Ng'ombe
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 11,500</div>
+                <div class="text-[11px] text-slate-500">kwa kilo 1</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900 text-sm">24.0 kg</div>
+                <div class="w-24 bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 85%"></div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+                  Ipo Dukani
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-600">
+                Leo, 06:10 Asubuhi
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-1.5">
+                  <button class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded" type="button">
+                    <span class="text-xs font-bold px-1 py-0.5 bg-slate-100 rounded border border-slate-300">± kg</span>
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <!-- ROW 6: Mifupa kwa Supu -->
+            <tr class="hover:bg-slate-50/80 transition-colors">
+              <td class="py-3.5 pl-4 pr-3 sm:pl-6">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-12 h-12 rounded-lg bg-red-50 border border-slate-200 flex-shrink-0 flex items-center justify-center text-xl overflow-hidden">
+                    🥣
+                  </div>
+                  <div>
+                    <div class="font-bold text-slate-900 leading-snug">Mifupa kwa Supu</div>
+                    <div class="text-xs text-slate-500 flex items-center space-x-2 mt-0.5">
+                      <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px] text-slate-700">SP-003</span>
+                      <span>• Mifupa yenye uzito kwa supu </span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-800 border border-purple-200">
+                  Supu &amp; Mifupa
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900">TZS 6,000</div>
+                <div class="text-[11px] text-slate-500">kwa kilo 1</div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <div class="font-bold text-slate-900 text-sm">18.0 kg</div>
+                <div class="w-24 bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 60%"></div>
+                </div>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span>
+                  Ipo Dukani
+                </span>
+              </td>
+              <td class="px-3 py-3.5 whitespace-nowrap text-xs text-slate-600">
+                Leo, 05:30 Asubuhi
+              </td>
+              <td class="py-3.5 pl-3 pr-4 sm:pr-6 whitespace-nowrap text-right text-xs">
+                <div class="flex items-center justify-end space-x-1.5">
+                  <button class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded" type="button">
+                    <span class="text-xs font-bold px-1 py-0.5 bg-slate-100 rounded border border-slate-300">± kg</span>
+                  </button>
+                  <button class="p-1.5 text-slate-500 hover:text-maroon-700 hover:bg-maroon-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                  <button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded" type="button">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- BEGIN: TableBottomBar -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 sm:px-6 py-3.5 bg-slate-50/75 border-t border-slate-200 text-xs text-slate-600">
+        <!-- Bulk operational quick triggers -->
+        <div class="flex items-center space-x-2">
+          <button
+            class="inline-flex items-center px-2.5 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-medium transition"
+            type="button">
+            🔄 Sasisha Mizigo Yote kwa Mara Moja
+          </button>
+          <button
+            class="inline-flex items-center px-2.5 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-medium transition"
+            type="button">
+            🖨️ Chapa Orodha ya Kaunta (Daily Cut Sheet)
+          </button>
+        </div>
+        <!-- Pagination Controls -->
+        <div class="flex items-center space-x-3">
+          <span>Inaonyesha <strong class="text-slate-800">1 - 6</strong> kati ya <strong
+              class="text-slate-800">18</strong></span>
+          <div class="inline-flex items-center -space-x-px rounded-md shadow-sm">
+            <button
+              class="px-2.5 py-1 rounded-l-md border border-slate-300 bg-white text-slate-400 hover:bg-slate-50 cursor-not-allowed"
+              disabled="">
+              «
+            </button>
+            <button class="px-3 py-1 border border-maroon-700 bg-maroon-700 text-white font-bold">
+              1
+            </button>
+            <button class="px-3 py-1 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 font-medium">
+              2
+            </button>
+            <button class="px-3 py-1 border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 font-medium">
+              3
+            </button>
+            <button class="px-2.5 py-1 rounded-r-md border border-slate-300 bg-white text-slate-600 hover:bg-slate-50">
+              »
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- END: TableBottomBar -->
+    </section>
+    <!-- END: InventoryDataTableSection -->
+  </main>
+  <!-- END: MainContentArea -->
+  <!-- BEGIN: MainFooter -->
+  <footer class="mt-auto bg-white border-t border-slate-200 py-4 text-xs text-slate-500" data-purpose="admin-footer">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        © 2024 <strong class="text-slate-700">Nyama Fresh Butchery</strong>. Mfumo wa Usimamizi wa Ndani • Kariakoo
+        Msimbazi, Dar es Salaam.
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex items-center text-emerald-700 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span> TBS &amp; Halal Certified Butchery Standards
+        </span>
+        <span class="text-slate-300">|</span>
+        <a class="hover:underline text-slate-600" href="#">Msaada wa Mfumo (Support)</a>
+      </div>
+    </div>
+  </footer>
+  <!-- END: MainFooter -->
+</body>
+
+</html>

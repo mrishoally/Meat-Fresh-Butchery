@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="sw"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nyama Fresh Butchery - Kikapu cha Oda &amp; Malipo</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            maroon: {
+              50: '#fdf3f3',
+              100: '#fbe6e6',
+              200: '#f7d0d0',
+              600: '#b92828',
+              700: '#9e1f1f',
+              800: '#8a1c1c',
+              900: '#6d1313',
+            },
+            cream: {
+              50: '#fdfbf7',
+              100: '#f8f5ee',
+              200: '#efe9dc',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-scrollbar">
+    /* Subtle custom scrollbar for cart drawer */
+    .drawer-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .drawer-scroll::-webkit-scrollbar-track {
+      background: #f8f6f4;
+    }
+    .drawer-scroll::-webkit-scrollbar-thumb {
+      background: #d8cfc4;
+      border-radius: 9999px;
+    }
+    .drawer-scroll::-webkit-scrollbar-thumb:hover {
+      background: #b5a695;
+    }
+  </style>
+</head>
+<body class="font-sans bg-[#FAF7F2] text-slate-800 antialiased relative overflow-hidden min-h-screen">
+<!-- BEGIN: StorefrontBackdropMockup -->
+<!-- Base background representing the active storefront with subtle blur and darkened overlay -->
+<div aria-hidden="true" class="fixed inset-0 select-none pointer-events-none filter blur-[2px] opacity-40 transform scale-[1.01] bg-slate-100">
+<!-- Mock Top Nav -->
+<header class="bg-white border-b border-slate-200 px-8 py-3 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-maroon-800 text-white font-bold px-3 py-1.5 rounded-lg text-sm tracking-wider">NYAMA FRESH</div>
+<span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded-full font-semibold">● CHUKUA DUKANI — LOCAL PICKUP ACTIVE</span>
+</div>
+<div class="w-96 h-9 bg-slate-100 rounded-full border border-slate-200"></div>
+<div class="flex items-center gap-3">
+<div class="h-9 px-4 bg-maroon-800 text-white rounded-lg flex items-center text-xs font-bold">SUBTOTAL: TZS 58,000</div>
+</div>
+</header>
+<!-- Mock Hero Section -->
+<div class="max-w-7xl mx-auto px-8 py-8">
+<div class="bg-amber-50/70 border border-amber-200 p-6 rounded-2xl mb-8">
+<h1 class="text-3xl font-extrabold text-slate-900">Agiza Nyama Mapema — <span class="text-maroon-800">Bila Malipo ya Awali</span></h1>
+<p class="text-slate-600 mt-2">Angalia mzigo wa sasa wa mbuzi, ng'ombe na kuku safi dukani Kariakoo.</p>
+</div>
+<!-- Mock Grid -->
+<div class="grid grid-cols-4 gap-6">
+<div class="h-72 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm"></div>
+<div class="h-72 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm"></div>
+<div class="h-72 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm"></div>
+<div class="h-72 bg-white rounded-2xl border border-slate-200 p-4 shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- END: StorefrontBackdropMockup -->
+<!-- BEGIN: DrawerOverlayScrim -->
+<!-- Dark translucent overlay to focus attention on the drawer -->
+<div aria-label="Funga kikapu" class="fixed inset-0 bg-slate-900/50 backdrop-blur-[3px] transition-opacity z-40"></div>
+<!-- END: DrawerOverlayScrim -->
+<!-- BEGIN: CustomerCartCheckoutDrawer -->
+<aside aria-labelledby="drawer-title" aria-modal="true" class="fixed inset-y-0 right-0 z-50 w-full sm:max-w-lg md:max-w-[510px] bg-white shadow-2xl flex flex-col justify-between border-l border-amber-100/80 animate-in slide-in-from-right duration-300" data-purpose="cart-checkout-slideover" id="checkout-drawer" role="dialog">
+<!-- BEGIN: DrawerHeader -->
+<header class="px-6 py-4 bg-gradient-to-r from-amber-50/70 via-white to-amber-50/30 border-b border-slate-200 flex-shrink-0">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-2.5">
+<h2 class="text-xl font-bold text-slate-900 tracking-tight" id="drawer-title">Kikapu Chako cha Oda</h2>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-maroon-100 text-maroon-800 border border-maroon-200">
+              3 bidhaa
+            </span>
+</div>
+<p class="text-xs text-slate-600 mt-1 flex items-center gap-1.5 font-medium">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+            Chukua dukani Kariakoo Msimbazi • Hakuna malipo ya awali leo
+          </p>
+</div>
+<!-- Close Drawer Button -->
+<button aria-label="Funga kikapu" class="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-maroon-800" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- END: DrawerHeader -->
+<!-- BEGIN: DrawerContentScrollArea -->
+<div class="overflow-y-auto drawer-scroll flex-1 px-6 py-5 space-y-6">
+<!-- BEGIN: CartItemsList -->
+<section aria-label="Bidhaa zilizopo kwenye kikapu" data-purpose="cart-items-section">
+<div class="flex items-center justify-between pb-2 border-b border-slate-100 mb-3">
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Bidhaa Zilizoteuliwa</h3>
+<span class="text-xs text-maroon-800 font-semibold cursor-pointer hover:underline">Futa Zote</span>
+</div>
+<ul class="divide-y divide-slate-100" role="list">
+<!-- Item 1: Mbuzi Bila Mfupa -->
+<li class="py-3.5 flex items-start gap-3.5 group">
+<img alt="Nyama ya Mbuzi Bila Mfupa" class="w-16 h-16 rounded-xl object-cover border border-amber-100 shadow-sm flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJRd_1iQrltNPFQCHcjIU4xLBtWfC4o-CrqMNOXl9uZ2zDk8ocz1q1yScJBVpwnzuwAE1KDQ8nQV3nUOFTh2yHPSlyDsJNx9zfOlKFVJsGvfMwC0jGfNSbbz0qMcL6KfrxOF0R006wwWMECKnXT_ns70GkC2L_GFzXQl48ji_qNELuAM6CnYCrt_WdUs7rwDb59BAc_J3IjywkvomPpKhqttEQCS1NSY6ew0tzlJQaxKYQoGyk6Z9fkQ"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between">
+<div>
+<h4 class="text-sm font-bold text-slate-900 leading-tight">Nyama ya Mbuzi Bila Mfupa</h4>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 font-medium">TZS 14,000 / kg</span>
+<span class="text-[10px] bg-amber-50 text-amber-900 border border-amber-200/80 px-1.5 py-0.2 rounded font-medium">Dodoma Mbuzi</span>
+</div>
+</div>
+<button aria-label="Ondoa Mbuzi Bila Mfupa" class="text-slate-300 hover:text-red-600 transition-colors p-1 -mr-1" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Quantity Stepper & Price Row -->
+<div class="flex items-center justify-between mt-3">
+<div class="inline-flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5">
+<button aria-label="Punguza kilo" class="w-7 h-7 rounded-md bg-white text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shadow-xs text-sm active:scale-95 transition" type="button">−</button>
+<span class="px-3 text-xs font-bold text-slate-900 min-w-[42px] text-center">2 kg</span>
+<button aria-label="Ongeza kilo" class="w-7 h-7 rounded-md bg-white text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shadow-xs text-sm active:scale-95 transition" type="button">+</button>
+</div>
+<div class="text-right">
+<span class="text-xs text-slate-400 block -mb-0.5">Jumla ndogo</span>
+<span class="text-sm font-extrabold text-maroon-800 tracking-tight">TZS 28,000</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-400 mt-1">Kiwango cha juu: 8 kg zimebaki leo</p>
+</div>
+</li>
+<!-- Item 2: Mbavu za Ng'ombe (Prime Ribs) -->
+<li class="py-3.5 flex items-start gap-3.5 group">
+<img alt="Mbavu za Ng'ombe" class="w-16 h-16 rounded-xl object-cover border border-amber-100 shadow-sm flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfKUsoz_UmjSkV8g3bB2ecFCg4XYaWpNtrjon6QcJUvMKB-5CK2GPM8jSADBZiYjnOr8l_e1050plz1-JP51zHgzUNjW75VESgeLxW5vs5-gWId1Bls2-ZGEAjKuYcXuoHHhyd39ZIDLhIYa4xCOD8gOFIVye-4lcUfQv9Ffd7zqoPDNfdnSoF2mtrZcesIueVNNofI87tn_ii06CUM38O41YSTRcRSBg4ZoEt85-Hs6RwjS8OP54Byg"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between">
+<div>
+<h4 class="text-sm font-bold text-slate-900 leading-tight">Mbavu za Ng'ombe (Prime Ribs)</h4>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 font-medium">TZS 10,500 / kg</span>
+<span class="text-[10px] bg-red-50 text-maroon-800 border border-red-200/60 px-1.5 py-0.2 rounded font-medium">Kongwa Beef</span>
+</div>
+</div>
+<button aria-label="Ondoa Mbavu za Ng'ombe" class="text-slate-300 hover:text-red-600 transition-colors p-1 -mr-1" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Stepper and Warning pill -->
+<div class="flex items-center justify-between mt-3">
+<div class="inline-flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5">
+<button aria-label="Punguza kilo" class="w-7 h-7 rounded-md bg-white text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shadow-xs text-sm active:scale-95 transition" type="button">−</button>
+<span class="px-3 text-xs font-bold text-slate-900 min-w-[42px] text-center">2 kg</span>
+<button aria-label="Ongeza kilo" class="w-7 h-7 rounded-md bg-slate-100 text-slate-300 cursor-not-allowed flex items-center justify-center text-sm" disabled="" type="button">+</button>
+</div>
+<div class="text-right">
+<span class="text-xs text-slate-400 block -mb-0.5">Jumla ndogo</span>
+<span class="text-sm font-extrabold text-maroon-800 tracking-tight">TZS 21,000</span>
+</div>
+</div>
+<div class="mt-1 flex items-center gap-1.5">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-900">
+                  ⚠️ Kilo 2 tu zimebaki dukani leo
+                </span>
+</div>
+</div>
+</li>
+<!-- Item 3: Mapaja ya Kuku Broiler -->
+<li class="py-3.5 flex items-start gap-3.5 group">
+<img alt="Mapaja ya Kuku Broiler" class="w-16 h-16 rounded-xl object-cover border border-amber-100 shadow-sm flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBteAsCnJRqzTugPlFBD_u5tcAkwANYZ-0oM1tUJ-Fi5kQXVFRnysLk0swz1vfYbqziSjOHYCu9ZegDCieVM5hwCdgQ5hvlCw-LcEjV2UHUVwEpTxKT1TdR7qc8cfyDl4k2DBUudvj7NjzHUmec4DkpG7grmQfc1sboJRj5TLG9Sb_dGCVd5WQJ58ssQoUSzYcksIWAVcQXN5p11M_kUaolkVhjW3xBH-51o3P7-liNU9xYhEUmLItzSA"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between">
+<div>
+<h4 class="text-sm font-bold text-slate-900 leading-tight">Mapaja ya Kuku Broiler</h4>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-xs text-slate-500 font-medium">TZS 9,000 / kg</span>
+<span class="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-1.5 py-0.2 rounded font-medium">Yamesafishwa vizuri</span>
+</div>
+</div>
+<button aria-label="Ondoa Mapaja ya Kuku" class="text-slate-300 hover:text-red-600 transition-colors p-1 -mr-1" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<!-- Stepper and line total -->
+<div class="flex items-center justify-between mt-3">
+<div class="inline-flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5">
+<button aria-label="Punguza kilo" class="w-7 h-7 rounded-md bg-white text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shadow-xs text-sm active:scale-95 transition" type="button">−</button>
+<span class="px-3 text-xs font-bold text-slate-900 min-w-[42px] text-center">1 kg</span>
+<button aria-label="Ongeza kilo" class="w-7 h-7 rounded-md bg-white text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shadow-xs text-sm active:scale-95 transition" type="button">+</button>
+</div>
+<div class="text-right">
+<span class="text-xs text-slate-400 block -mb-0.5">Jumla ndogo</span>
+<span class="text-sm font-extrabold text-maroon-800 tracking-tight">TZS 9,000</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-400 mt-1">Tayari kukatwa vipande vya kukaanga au supu</p>
+</div>
+</li>
+</ul>
+</section>
+<!-- END: CartItemsList -->
+<!-- BEGIN: ReservationSummaryBox -->
+<section class="bg-gradient-to-br from-cream-100 to-amber-50/50 rounded-2xl p-4 border border-amber-200/70 shadow-xs" data-purpose="order-summary-card">
+<h3 class="text-xs font-bold tracking-wider uppercase text-maroon-900/70 mb-3 flex items-center justify-between">
+<span>Muhtasari wa Oda</span>
+<span class="text-[11px] bg-white border border-amber-200 px-2 py-0.5 rounded-full font-medium text-slate-600">Msimbazi Kariakoo</span>
+</h3>
+<div class="space-y-2 text-xs">
+<div class="flex justify-between text-slate-600">
+<span>Jumla ya Bidhaa (Cuts)</span>
+<span class="font-medium text-slate-800">3 aina (Kilo 5 jumla)</span>
+</div>
+<div class="flex justify-between text-slate-600">
+<span>Gharama ya Kukata &amp; Kupakia (Food-grade Vacuum)</span>
+<span class="font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">BURE (Tsh 0)</span>
+</div>
+<div class="pt-2 border-t border-amber-200/60 flex justify-between items-baseline">
+<span class="text-sm font-bold text-slate-900">Makadirio ya Kulipa Dukani:</span>
+<span class="text-lg font-extrabold text-maroon-800 tracking-tight">TZS 58,000</span>
+</div>
+</div>
+<!-- Payment methods note -->
+<div class="mt-3 pt-2.5 border-t border-amber-200/40">
+<p class="text-[11px] text-slate-500 font-medium leading-relaxed">
+<strong class="text-slate-700">Njia za Kulipa Unapochukua:</strong> M-Pesa, Tigo Pesa, Airtel Money au Fedha Taslimu (Cash dukani).
+          </p>
+</div>
+<!-- Safe Cold Reservation guarantee -->
+<div class="mt-3 bg-white/90 rounded-xl p-2.5 border border-amber-200/70 flex items-start gap-2 text-slate-700 text-[11px] leading-snug">
+<span class="text-sm flex-shrink-0">📌</span>
+<span>Nyama yako itatunzwa kwa ubaridi (<strong>-4°C</strong>) na kuwekwa kando kwa jina lako kwa masaa 24 baada ya maandalizi kukamilika.</span>
+</div>
+</section>
+<!-- END: ReservationSummaryBox -->
+<!-- BEGIN: CustomerContactForm -->
+<section class="space-y-4 pt-1" data-purpose="customer-info-form">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<svg class="w-4 h-4 text-maroon-800" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<h3 class="text-sm font-bold text-slate-900">Taarifa za Mteja (Lebo ya Mzigo)</h3>
+</div>
+<span class="text-[11px] text-slate-400">Hatua ya mwisho</span>
+</div>
+<form class="space-y-3.5" onsubmit="event.preventDefault();">
+<!-- Full Name -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1" for="customer-name">
+              Jina Kamili la Mpokeaji <span class="text-red-500">*</span>
+</label>
+<input class="w-full text-xs sm:text-sm font-medium rounded-xl border-slate-300 focus:border-maroon-800 focus:ring-maroon-800 transition py-2 px-3 shadow-xs" id="customer-name" placeholder="mfano: Juma Mwakasege" required="" type="text" value="Juma Mwakasege"/>
+</div>
+<!-- Phone Number with prefix -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1" for="customer-phone">
+              Namba ya Simu ya Kupokea SMS ya Oda <span class="text-red-500">*</span>
+</label>
+<div class="flex rounded-xl shadow-xs border border-slate-300 focus-within:border-maroon-800 focus-within:ring-1 focus-within:ring-maroon-800 overflow-hidden bg-white">
+<span class="inline-flex items-center px-3 bg-slate-100 text-slate-600 text-xs font-bold border-r border-slate-200">
+                🇹🇿 +255
+              </span>
+<input class="flex-1 min-w-0 border-0 text-xs sm:text-sm font-medium focus:ring-0 py-2 px-3 text-slate-800" id="customer-phone" placeholder="712 345 678" required="" type="tel" value="0712 345 678"/>
+</div>
+<span class="text-[11px] text-slate-400 mt-1 block">Utatumiwa ujumbe wa SMS wenye nambari ya oda ikishakuwa tayari.</span>
+</div>
+<!-- Expected Pickup Time Selection -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1.5">
+              Muda Unaotarajia Kuchukua Dukani <span class="text-red-500">*</span>
+</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="relative flex flex-col items-center justify-center p-2 text-center rounded-xl border-2 border-maroon-800 bg-maroon-50/50 cursor-pointer text-xs font-bold text-maroon-900 transition">
+<input checked="" class="sr-only" name="pickup_time" type="radio" value="30min"/>
+<span>Ndani ya dk 30</span>
+<span class="text-[10px] font-normal text-maroon-700 mt-0.5">Haraka zaidi</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-2 text-center rounded-xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer text-xs font-medium text-slate-700 transition">
+<input class="sr-only" name="pickup_time" type="radio" value="evening"/>
+<span>Leo Jioni</span>
+<span class="text-[10px] text-slate-400 mt-0.5">Hadi saa 2 usiku</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-2 text-center rounded-xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer text-xs font-medium text-slate-700 transition">
+<input class="sr-only" name="pickup_time" type="radio" value="tomorrow"/>
+<span>Kesho Asubuhi</span>
+<span class="text-[10px] text-slate-400 mt-0.5">Kuanzia saa 12:30</span>
+</label>
+</div>
+</div>
+<!-- Butcher Special Instructions (Optional) -->
+<div>
+<label class="block text-xs font-semibold text-slate-700 mb-1" for="special-instructions">
+              Maelezo Maalum ya Ukataji (Si Lazima)
+            </label>
+<textarea class="w-full text-xs font-normal rounded-xl border-slate-300 focus:border-maroon-800 focus:ring-maroon-800 transition py-2 px-3 shadow-xs" id="special-instructions" placeholder="mfano: Kata vipande vidogo vya mchuzi, tenga mifupa ya mbuzi kando, weka pilipili moja ndani ya mfuko..." rows="2"></textarea>
+</div>
+</form>
+</section>
+<!-- END: CustomerContactForm -->
+</div>
+<!-- END: DrawerContentScrollArea -->
+<!-- BEGIN: DrawerStickyFooter -->
+<footer class="p-5 bg-white border-t border-slate-200 flex-shrink-0 shadow-lg space-y-2.5">
+<!-- Primary Action: Confirm Pre-Order -->
+<button class="w-full bg-maroon-800 hover:bg-maroon-900 active:scale-[0.99] text-white font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-between group" type="button">
+<div class="flex items-center gap-2">
+<svg class="w-5 h-5 text-amber-300 transition-transform group-hover:scale-110" fill="currentColor" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+</svg>
+<span class="text-sm tracking-wide">Thibitisha Oda Yangu</span>
+</div>
+<div class="flex items-center gap-1 font-extrabold text-amber-300 text-sm">
+<span>TZS 58,000</span>
+<span class="group-hover:translate-x-1 transition-transform">→</span>
+</div>
+</button>
+<!-- Trust note -->
+<div class="text-center">
+<p class="text-[11px] text-slate-500 font-medium">
+          🛡️ Hutozwi kiasi chochote sasa hivi • Malipo yatafanyika dukani baada ya kupima.
+        </p>
+</div>
+<!-- Secondary Cancel/Continue browsing link -->
+<div class="text-center pt-0.5">
+<button class="text-xs font-semibold text-slate-500 hover:text-maroon-800 hover:underline transition" type="button">
+          ← Endelea Kuangalia Nyama Nyingine
+        </button>
+</div>
+</footer>
+<!-- END: DrawerStickyFooter -->
+</aside>
+<!-- END: CustomerCartCheckoutDrawer -->
+</body></html>
