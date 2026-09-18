@@ -44,9 +44,9 @@ export const DEFAULT_SETTINGS = {
   currentStaffName: 'Baraka Mwangi',
   securityPin: '1234',
   staffList: [
-    { id: 'st_1', name: 'Baraka Mwangi', role: 'owner', phone: '0712345678', pin: '1234' },
-    { id: 'st_2', name: 'Amina Salum', role: 'cashier', phone: '0755998877', pin: '2222' },
-    { id: 'st_3', name: 'Juma Mchinjaji', role: 'butcher', phone: '0714112233', pin: '3333' },
+    { id: 'st_1', name: 'Baraka Mwangi', role: 'owner', email: 'owner@nyamafresh.co.tz', phone: '0712345678' },
+    { id: 'st_2', name: 'Amina Salum', role: 'cashier', email: 'cashier@nyamafresh.co.tz', phone: '0755998877' },
+    { id: 'st_3', name: 'Juma Mchinjaji', role: 'butcher', email: 'butcher@nyamafresh.co.tz', phone: '0714112233' },
   ],
   auditLog: [
     { id: 'log_1', timestamp: new Date().toISOString(), staffName: 'Baraka Mwangi', role: 'owner', action: 'Mfumo wa Nyama Fresh Umeanzishwa na kuwekwa mipangilio ya awali' }
@@ -589,12 +589,12 @@ function reducer(action) {
       const newStaff = {
         id: `st_${Date.now()}`,
         name: action.payload.name,
+        email: action.payload.email || '',
         role: action.payload.role || 'cashier',
         phone: action.payload.phone || '',
-        pin: action.payload.pin || '1234',
       };
       state.settings.staffList.push(newStaff);
-      addAuditLogEntry(state.settings, state.settings.currentStaffName, state.settings.currentRole, `Ameongeza mfanyakazi mpya: ${newStaff.name} (${newStaff.role})`);
+      addAuditLogEntry(state.settings, state.settings.currentStaffName, state.settings.currentRole, `Ameongeza mfanyakazi mpya: ${newStaff.name} (${newStaff.email} - ${newStaff.role})`);
       saveSettings(state.settings);
       triggerToast(`Mfanyakazi "${newStaff.name}" ameongezwa kikamilifu.`, 'success');
       break;

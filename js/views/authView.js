@@ -5,9 +5,6 @@
 import { createEl, clearEl } from '../utils/dom.js';
 import { renderToast } from '../components/toast.js';
 
-let currentPinInput = '';
-let activeTab = 'pin'; // 'pin' | 'email'
-let selectedStaffId = 'st_1';
 let registerRole = 'customer'; // 'customer' | 'cashier' | 'butcher' | 'owner'
 
 /**
@@ -28,11 +25,11 @@ function createAuthHeroSide(settings, subtitleText) {
     createEl('div', { className: 'auth-hero-content' }, [
       createEl('div', { className: 'auth-hero-badge' }, [
         createEl('span', { className: 'material-symbols-outlined', style: 'font-size: 1.1rem;' }, ['verified_user']),
-        'Mfumo wa Uthibitisho na Usalama',
+        'Mfumo wa Uthibitisho wa Barua Pepe',
       ]),
       createEl('h2', { className: 'auth-hero-heading' }, ['Nyama Safi, Akiba ya Pre-Order & POS']),
       createEl('p', { className: 'auth-hero-desc' }, [
-        subtitleText || 'Ingia kwenye mfumo wa Nyama Fresh kusimamia oda za wateja, kuangalia stoki ya steki na kutoa risiti za duka.'
+        subtitleText || 'Ingia kwa Barua Pepe kwenye portal ya Nyama Fresh kusimamia oda za wateja au kufanya pre-order ya steki.'
       ]),
     ]),
 
@@ -40,7 +37,7 @@ function createAuthHeroSide(settings, subtitleText) {
     createEl('div', { className: 'auth-hero-features' }, [
       createEl('div', { className: 'auth-hero-feature-item' }, [
         createEl('div', { className: 'auth-hero-feature-icon' }, ['✓']),
-        'Upatikanaji wa Haraka kwa PIN ya Mhudumu (Staff Quick PIN)',
+        'Uthibitisho Salama kwa Barua Pepe (Email Authentication)',
       ]),
       createEl('div', { className: 'auth-hero-feature-item' }, [
         createEl('div', { className: 'auth-hero-feature-icon' }, ['✓']),
@@ -48,14 +45,14 @@ function createAuthHeroSide(settings, subtitleText) {
       ]),
       createEl('div', { className: 'auth-hero-feature-item' }, [
         createEl('div', { className: 'auth-hero-feature-icon' }, ['✓']),
-        'Hifadhi ya Wingu Iliyolindwa na Mipangilio ya Supabase Auth',
+        'Ufikiaji Maalumu kwa Wateja na Wafanyakazi (Role Isolation)',
       ]),
     ]),
   ]);
 }
 
 /**
- * Render Login View (#login)
+ * Render Login View (#login) - Email Only Authentication
  */
 export function renderLoginView(state, dispatch) {
   const root = document.getElementById('app');
@@ -63,240 +60,122 @@ export function renderLoginView(state, dispatch) {
   clearEl(root);
 
   const { settings, toast } = state;
-  const staffList = settings?.staffList || [
-    { id: 'st_1', name: 'Baraka Mwangi', role: 'owner', pin: '1234' },
-    { id: 'st_2', name: 'Amina Salum', role: 'cashier', pin: '2222' },
-    { id: 'st_3', name: 'Juma Mchinjaji', role: 'butcher', pin: '3333' },
-  ];
 
-  const selectedStaff = staffList.find(s => s.id === selectedStaffId) || staffList[0];
-
-  // Helper for PIN Dot updating
-  function updatePinDots() {
-    const dotsContainer = document.getElementById('auth-pin-dots-wrap');
-    if (!dotsContainer) return;
-    clearEl(dotsContainer);
-    for (let i = 0; i < 4; i++) {
-      const isFilled = i < currentPinInput.length;
-      dotsContainer.appendChild(createEl('div', {
-        className: `auth-pin-dot ${isFilled ? 'auth-pin-dot--filled' : ''}`
-      }));
-    }
-  }
-
-  // Handle PIN verification
-  function handlePinSubmit() {
-    if (currentPinInput.length < 4) {
-      dispatch({
-        type: 'SET_TOAST',
-        payload: { message: 'Tafadhali ingiza tarakimu 4 za PIN', type: 'warning' }
-      });
-      return;
-    }
-
-    const expectedPin = selectedStaff.pin || settings.securityPin || '1234';
-    if (currentPinInput === expectedPin) {
-      // Login Success
-      dispatch({
-        type: 'UPDATE_SETTINGS',
-        payload: {
-          currentRole: selectedStaff.role,
-          currentStaffName: selectedStaff.name,
-          isAuthenticated: true,
-          userType: 'staff'
-        }
-      });
-      dispatch({
-        type: 'ADD_AUDIT_LOG',
-        payload: {
-          action: `Ameingia kwenye mfumo kwa PIN kama ${selectedStaff.name} (${selectedStaff.role.toUpperCase()})`
-        }
-      });
-      dispatch({
-        type: 'SHOW_TOAST',
-        payload: { message: `Karibu sana ${selectedStaff.name}! Umeingia kikamilifu kama Staff.`, type: 'success', id: Date.now() }
-      });
-      currentPinInput = '';
-      window.location.hash = '#/admin';
-    } else {
-      currentPinInput = '';
-      updatePinDots();
-      dispatch({
-        type: 'SET_TOAST',
-        payload: { message: 'PIN siyo sahihi. Tafadhali jaribu tena.', type: 'error' }
-      });
-    }
-  }
-
-  // PIN Form Side
-  const pinFormSide = createEl('div', { className: 'auth-form-side' }, [
+  const emailFormSide = createEl('div', { className: 'auth-form-side' }, [
     createEl('div', { className: 'auth-header' }, [
-      createEl('h1', { className: 'auth-title' }, ['Ingia Kwenye Mfumo']),
-      createEl('p', { className: 'auth-subtitle' }, ['Chagua njia ya kuingia kwenye akaunti yako ya Nyama Fresh']),
+      createEl('h1', { className: 'auth-title' }, ['Ingia Kwenye Akaunti']),
+      createEl('p', { className: 'auth-subtitle' }, ['Weka barua pepe na nywila yako kuingia kwenye akaunti yako ya Nyama Fresh']),
     ]),
 
-    // Tab Switcher
-    createEl('div', { className: 'auth-tab-bar' }, [
-      createEl('button', {
-        type: 'button',
-        className: `auth-tab-btn ${activeTab === 'pin' ? 'auth-tab-btn--active' : ''}`,
-        onClick: () => { activeTab = 'pin'; renderLoginView(state, dispatch); }
-      }, [
-        createEl('span', { className: 'material-symbols-outlined', style: 'font-size: 1.1rem;' }, ['pin']),
-        'PIN ya Staff (Duka POS)',
+    createEl('form', {
+      onSubmit: (e) => {
+        e.preventDefault();
+        const email = e.target.email.value.trim().toLowerCase();
+        const password = e.target.password.value;
+
+        const staffList = settings?.staffList || [
+          { id: 'st_1', name: 'Baraka Mwangi', role: 'owner', email: 'owner@nyamafresh.co.tz' },
+          { id: 'st_2', name: 'Amina Salum', role: 'cashier', email: 'cashier@nyamafresh.co.tz' },
+          { id: 'st_3', name: 'Juma Mchinjaji', role: 'butcher', email: 'butcher@nyamafresh.co.tz' },
+        ];
+
+        // Check if email belongs to a registered staff member
+        const matchedStaff = staffList.find(s => s.email && s.email.toLowerCase() === email);
+
+        if (matchedStaff) {
+          // Authenticate as Staff
+          dispatch({
+            type: 'UPDATE_SETTINGS',
+            payload: {
+              currentRole: matchedStaff.role,
+              currentStaffName: matchedStaff.name,
+              currentUserEmail: email,
+              isAuthenticated: true,
+              userType: 'staff'
+            }
+          });
+          dispatch({
+            type: 'ADD_AUDIT_LOG',
+            payload: {
+              action: `Ameingia kwenye mfumo kwa barua pepe kama ${matchedStaff.name} (${matchedStaff.role.toUpperCase()})`
+            }
+          });
+          dispatch({
+            type: 'SHOW_TOAST',
+            payload: { message: `Karibu sana ${matchedStaff.name}! Umeingia kikamilifu kama Staff (${matchedStaff.role.toUpperCase()}).`, type: 'success', id: Date.now() }
+          });
+          window.location.hash = '#/admin';
+        } else {
+          // Authenticate as Customer
+          const rawName = email.split('@')[0] || 'Mteja';
+          const nameFromEmail = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+          dispatch({
+            type: 'UPDATE_SETTINGS',
+            payload: {
+              currentRole: 'customer',
+              currentStaffName: nameFromEmail,
+              currentUserEmail: email,
+              isAuthenticated: true,
+              userType: 'customer'
+            }
+          });
+          dispatch({
+            type: 'SHOW_TOAST',
+            payload: { message: `Karibu sana ${nameFromEmail}! Umeingia kikamilifu kama Mteja.`, type: 'success', id: Date.now() }
+          });
+          window.location.hash = '#/shop';
+        }
+      }
+    }, [
+      createEl('div', { className: 'auth-input-field' }, [
+        createEl('input', {
+          type: 'email',
+          name: 'email',
+          className: 'input',
+          placeholder: 'Barua Pepe (e.g. mteja@gmail.com au owner@nyamafresh.co.tz)',
+          required: true
+        }),
+        createEl('span', { className: 'material-symbols-outlined' }, ['mail']),
       ]),
-      createEl('button', {
-        type: 'button',
-        className: `auth-tab-btn ${activeTab === 'email' ? 'auth-tab-btn--active' : ''}`,
-        onClick: () => { activeTab = 'email'; renderLoginView(state, dispatch); }
-      }, [
-        createEl('span', { className: 'material-symbols-outlined', style: 'font-size: 1.1rem;' }, ['mail']),
-        'Barua Pepe (Cloud Auth)',
+
+      createEl('div', { className: 'auth-input-field' }, [
+        createEl('input', {
+          type: 'password',
+          name: 'password',
+          className: 'input',
+          placeholder: 'Nywila / Password',
+          required: true
+        }),
+        createEl('span', { className: 'material-symbols-outlined' }, ['lock']),
       ]),
-    ]),
 
-    activeTab === 'pin'
-      ? createEl('div', {}, [
-          // Staff Quick Selector
-          createEl('label', { className: 'label', style: 'margin-bottom: 0.35rem; display: block;' }, ['Chagua Mhudumu / Staff:']),
-          createEl('div', { className: 'auth-staff-chips' }, staffList.map(s =>
-            createEl('button', {
-              type: 'button',
-              className: `auth-staff-chip ${s.id === selectedStaffId ? 'auth-staff-chip--active' : ''}`,
-              onClick: () => {
-                selectedStaffId = s.id;
-                currentPinInput = '';
-                renderLoginView(state, dispatch);
-              }
-            }, [
-              createEl('span', { className: 'material-symbols-outlined', style: 'font-size: 1rem;' }, [
-                s.role === 'owner' ? 'shield' : s.role === 'cashier' ? 'payments' : 'content_cut'
-              ]),
-              `${s.name} (${s.role === 'owner' ? 'Mmiliki' : s.role === 'cashier' ? 'Mhudumu' : 'Mchinjaji'})`
-            ])
-          )),
-
-          // PIN Dots Display
-          createEl('div', { id: 'auth-pin-dots-wrap', className: 'auth-pin-display' }, [
-            createEl('div', { className: `auth-pin-dot ${currentPinInput.length > 0 ? 'auth-pin-dot--filled' : ''}` }),
-            createEl('div', { className: `auth-pin-dot ${currentPinInput.length > 1 ? 'auth-pin-dot--filled' : ''}` }),
-            createEl('div', { className: `auth-pin-dot ${currentPinInput.length > 2 ? 'auth-pin-dot--filled' : ''}` }),
-            createEl('div', { className: `auth-pin-dot ${currentPinInput.length > 3 ? 'auth-pin-dot--filled' : ''}` }),
-          ]),
-
-          // PIN Pad Keypad
-          createEl('div', { className: 'auth-pin-pad' }, [
-            ...['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num =>
-              createEl('button', {
-                type: 'button',
-                className: 'auth-pin-btn',
-                onClick: () => {
-                  if (currentPinInput.length < 4) {
-                    currentPinInput += num;
-                    updatePinDots();
-                    if (currentPinInput.length === 4) {
-                      setTimeout(handlePinSubmit, 150);
-                    }
-                  }
-                }
-              }, [num])
-            ),
-            createEl('button', {
-              type: 'button',
-              className: 'auth-pin-btn auth-pin-btn--action',
-              onClick: () => {
-                currentPinInput = '';
-                updatePinDots();
-              }
-            }, ['C']),
-            createEl('button', {
-              type: 'button',
-              className: 'auth-pin-btn',
-              onClick: () => {
-                if (currentPinInput.length < 4) {
-                  currentPinInput += '0';
-                  updatePinDots();
-                  if (currentPinInput.length === 4) {
-                    setTimeout(handlePinSubmit, 150);
-                  }
-                }
-              }
-            }, ['0']),
-            createEl('button', {
-              type: 'button',
-              className: 'auth-pin-btn auth-pin-btn--action',
-              onClick: () => {
-                currentPinInput = currentPinInput.slice(0, -1);
-                updatePinDots();
-              }
-            }, ['⌫']),
-          ]),
-
-          createEl('button', {
-            type: 'button',
-            className: 'btn btn--primary btn--full btn--lg',
-            onClick: handlePinSubmit
-          }, [
-            createEl('span', { className: 'material-symbols-outlined' }, ['login']),
-            `Ingia Kama ${selectedStaff.name}`,
-          ]),
-        ])
-      : createEl('form', {
-          onSubmit: (e) => {
-            e.preventDefault();
-            const email = e.target.email.value;
-            const nameFromEmail = email.split('@')[0] || 'Mteja';
-            dispatch({
-              type: 'UPDATE_SETTINGS',
-              payload: {
-                currentRole: 'customer',
-                currentStaffName: nameFromEmail,
-                currentUserEmail: email,
-                isAuthenticated: true,
-                userType: 'customer'
-              }
-            });
-            dispatch({
-              type: 'SHOW_TOAST',
-              payload: { message: `Karibu sana ${nameFromEmail}! Umeingia kikamilifu kama Mteja.`, type: 'success', id: Date.now() }
-            });
-            window.location.hash = '#/shop';
-          }
-        }, [
-          createEl('div', { className: 'auth-input-field' }, [
-            createEl('input', {
-              type: 'email',
-              name: 'email',
-              className: 'input',
-              placeholder: 'Barua Pepe / Email Address',
-              required: true
-            }),
-            createEl('span', { className: 'material-symbols-outlined' }, ['mail']),
-          ]),
-          createEl('div', { className: 'auth-input-field' }, [
-            createEl('input', {
-              type: 'password',
-              name: 'password',
-              className: 'input',
-              placeholder: 'Nywila / Password',
-              required: true
-            }),
-            createEl('span', { className: 'material-symbols-outlined' }, ['lock']),
-          ]),
-
-          createEl('div', { style: 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;' }, [
-            createEl('label', { style: 'display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;' }, [
-              createEl('input', { type: 'checkbox', defaultChecked: true }),
-              'Niko kwenye kifaa changu (Remember me)',
-            ]),
-            createEl('a', { href: '#/forgot-password', className: 'auth-link', style: 'font-size: 0.85rem;' }, ['Umesahau Nywila?']),
-          ]),
-
-          createEl('button', { type: 'submit', className: 'btn btn--primary btn--full btn--lg' }, [
-            createEl('span', { className: 'material-symbols-outlined' }, ['login']),
-            'Ingia Kwenye Akaunti',
-          ]),
+      createEl('div', { style: 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;' }, [
+        createEl('label', { style: 'display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;' }, [
+          createEl('input', { type: 'checkbox', defaultChecked: true }),
+          'Kumbuka barua pepe hii',
         ]),
+        createEl('a', { href: '#/forgot-password', className: 'auth-link', style: 'font-size: 0.85rem;' }, ['Umesahau Nywila?']),
+      ]),
+
+      createEl('button', { type: 'submit', className: 'btn btn--primary btn--full btn--lg' }, [
+        createEl('span', { className: 'material-symbols-outlined' }, ['login']),
+        'Ingia Kwenye Akaunti',
+      ]),
+    ]),
+
+    // Quick Demo Account Guide
+    createEl('div', { className: 'mt-5 p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600' }, [
+      createEl('div', { className: 'font-bold text-slate-800 mb-1 flex items-center gap-1' }, [
+        createEl('span', { className: 'material-symbols-outlined text-[15px] text-amber-600' }, ['info']),
+        'Akaunti za Mfano (Demo Logins):'
+      ]),
+      createEl('div', { className: 'grid grid-cols-1 gap-1 text-[11px]' }, [
+        createEl('span', {}, ['• Staff (Mmiliki): owner@nyamafresh.co.tz']),
+        createEl('span', {}, ['• Staff (Mhudumu): cashier@nyamafresh.co.tz']),
+        createEl('span', {}, ['• Staff (Mchinjaji): butcher@nyamafresh.co.tz']),
+        createEl('span', {}, ['• Mteja (Customer): email yoyote (e.g. mteja@gmail.com)']),
+      ]),
+    ]),
 
     // Auth Footer
     createEl('div', { className: 'auth-footer' }, [
@@ -309,8 +188,8 @@ export function renderLoginView(state, dispatch) {
   const wrapper = createEl('div', { className: 'auth-page-wrapper' }, [
     createEl('div', { className: 'auth-container' }, [
       createEl('div', { className: 'auth-card-layout' }, [
-        createAuthHeroSide(settings, 'Ingia kwenye portal ya Nyama Fresh butchery kusimamia ada za pre-order, stoki na PIN za maduka.'),
-        pinFormSide,
+        createAuthHeroSide(settings, 'Ingia kwa barua pepe kwenye portal ya Nyama Fresh butchery kusimamia oda au kufanya pre-order.'),
+        emailFormSide,
       ]),
     ]),
   ]);

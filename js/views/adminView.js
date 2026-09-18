@@ -815,27 +815,27 @@ function renderStaffPermissionsTab(settings, dispatch) {
         onSubmit: (e) => {
           e.preventDefault();
           const form = e.target;
-          if (!form.staffName.value.trim()) return;
+          if (!form.staffName.value.trim() || !form.staffEmail.value.trim()) return;
           dispatch({
             type: 'ADD_STAFF',
             payload: {
               name: form.staffName.value.trim(),
+              email: form.staffEmail.value.trim().toLowerCase(),
               role: form.staffRole.value,
               phone: form.staffPhone.value.trim(),
-              pin: form.staffPin.value.trim() || '1234',
             }
           });
           form.reset();
         },
       }, [
         createEl('input', { name: 'staffName', type: 'text', placeholder: 'Jina la Mfanyakazi', className: 'input text-xs flex-1', required: true }),
+        createEl('input', { name: 'staffEmail', type: 'email', placeholder: 'Barua Pepe (Email)', className: 'input text-xs flex-1', required: true }),
         createEl('select', { name: 'staffRole', className: 'input select text-xs w-36' }, [
           createEl('option', { value: 'cashier' }, ['Mhudumu (Cashier)']),
           createEl('option', { value: 'butcher' }, ['Mchinjaji (Butcher)']),
           createEl('option', { value: 'owner' }, ['Mmiliki (Admin)']),
         ]),
         createEl('input', { name: 'staffPhone', type: 'text', placeholder: 'Simu', className: 'input text-xs w-32' }),
-        createEl('input', { name: 'staffPin', type: 'password', placeholder: 'PIN', className: 'input text-xs w-24' }),
         createEl('button', { type: 'submit', className: 'btn btn--secondary btn--sm shrink-0' }, ['+ Ongeza']),
       ]),
     ]),
