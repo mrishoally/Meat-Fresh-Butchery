@@ -101,7 +101,9 @@ export function renderLoginView(state, dispatch) {
         type: 'UPDATE_SETTINGS',
         payload: {
           currentRole: selectedStaff.role,
-          currentStaffName: selectedStaff.name
+          currentStaffName: selectedStaff.name,
+          isAuthenticated: true,
+          userType: 'staff'
         }
       });
       dispatch({
@@ -111,8 +113,8 @@ export function renderLoginView(state, dispatch) {
         }
       });
       dispatch({
-        type: 'SET_TOAST',
-        payload: { message: `Karibu sana ${selectedStaff.name}! Umeingia kikamilifu.`, type: 'success' }
+        type: 'SHOW_TOAST',
+        payload: { message: `Karibu sana ${selectedStaff.name}! Umeingia kikamilifu kama Staff.`, type: 'success', id: Date.now() }
       });
       currentPinInput = '';
       window.location.hash = '#/admin';
@@ -243,9 +245,20 @@ export function renderLoginView(state, dispatch) {
           onSubmit: (e) => {
             e.preventDefault();
             const email = e.target.email.value;
+            const nameFromEmail = email.split('@')[0] || 'Mteja';
             dispatch({
-              type: 'SET_TOAST',
-              payload: { message: `Akaunti ya ${email} imethibitishwa! Karibu.`, type: 'success' }
+              type: 'UPDATE_SETTINGS',
+              payload: {
+                currentRole: 'customer',
+                currentStaffName: nameFromEmail,
+                currentUserEmail: email,
+                isAuthenticated: true,
+                userType: 'customer'
+              }
+            });
+            dispatch({
+              type: 'SHOW_TOAST',
+              payload: { message: `Karibu sana ${nameFromEmail}! Umeingia kikamilifu kama Mteja.`, type: 'success', id: Date.now() }
             });
             window.location.hash = '#/shop';
           }
@@ -339,13 +352,24 @@ export function renderRegisterView(state, dispatch) {
         const email = e.target.email.value;
         const phone = e.target.phone.value;
 
-        dispatch({
-          type: 'SET_TOAST',
-          payload: { message: `Akaunti ya ${fullName} imefanikiwa kusajiliwa!`, type: 'success' }
-        });
-
-        if (registerRole !== 'customer') {
-          // Add to staff list
+        if (registerRole === 'customer') {
+          dispatch({
+            type: 'UPDATE_SETTINGS',
+            payload: {
+              currentRole: 'customer',
+              currentStaffName: fullName,
+              currentUserEmail: email,
+              isAuthenticated: true,
+              userType: 'customer'
+            }
+          });
+          dispatch({
+            type: 'SHOW_TOAST',
+            payload: { message: `Hongera ${fullName}! Akaunti yako ya Mteja imesajiliwa kikamilifu. Karibu dukani!`, type: 'success', id: Date.now() }
+          });
+          window.location.hash = '#/shop';
+        } else {
+          // Staff registration
           const newStaff = {
             id: `st_${Date.now()}`,
             name: fullName,
@@ -354,10 +378,23 @@ export function renderRegisterView(state, dispatch) {
             pin: '1234'
           };
           const updatedList = [...(settings?.staffList || []), newStaff];
-          dispatch({ type: 'UPDATE_SETTINGS', payload: { staffList: updatedList } });
+          dispatch({
+            type: 'UPDATE_SETTINGS',
+            payload: {
+              staffList: updatedList,
+              currentRole: registerRole,
+              currentStaffName: fullName,
+              currentUserEmail: email,
+              isAuthenticated: true,
+              userType: 'staff'
+            }
+          });
+          dispatch({
+            type: 'SHOW_TOAST',
+            payload: { message: `Hongera ${fullName}! Akaunti yako ya Staff (${registerRole.toUpperCase()}) imesajiliwa kikamilifu!`, type: 'success', id: Date.now() }
+          });
+          window.location.hash = '#/admin';
         }
-
-        window.location.hash = registerRole === 'customer' ? '#/shop' : '#/login';
       }
     }, [
       createEl('div', { className: 'auth-input-field' }, [

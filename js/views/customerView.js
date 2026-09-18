@@ -93,25 +93,50 @@ export function renderCustomerView(state, dispatch) {
         searchActionEl,
       ]),
 
-      // Actions (Auth link + Admin link + Cart button)
+      // Actions (Auth / Profile + Admin link for staff + Cart button)
       createEl('div', { className: 'header-actions' }, [
-        createEl('a', {
+        settings?.isAuthenticated ? createEl('div', { className: 'flex items-center gap-2' }, [
+          createEl('div', { className: 'px-2.5 py-1 bg-rose-900/10 border border-rose-900/20 text-rose-950 rounded-full text-xs font-extrabold flex items-center gap-1' }, [
+            createEl('span', { className: 'material-symbols-outlined text-[15px]' }, ['person']),
+            `${settings.currentStaffName || 'Mteja'}`
+          ]),
+          createEl('button', {
+            type: 'button',
+            className: 'btn btn--ghost text-xs px-2.5 py-1 text-rose-900 hover:bg-rose-50',
+            title: 'Toka kwenye akaunti',
+            onClick: () => {
+              dispatch({
+                type: 'UPDATE_SETTINGS',
+                payload: { isAuthenticated: false, currentRole: 'customer', currentStaffName: '', currentUserEmail: '', userType: 'guest' }
+              });
+              dispatch({
+                type: 'SHOW_TOAST',
+                payload: { message: 'Umeondoka kwenye akaunti yako kikamilifu.', type: 'info', id: Date.now() }
+              });
+              window.location.hash = '#/login';
+            }
+          }, [
+            createEl('span', { className: 'material-symbols-outlined text-[16px]' }, ['logout']),
+            createEl('span', { className: 'hidden sm:inline' }, ['Toka']),
+          ])
+        ]) : createEl('a', {
           href: '#/login',
           className: 'btn btn--ghost header-auth-link',
-          title: 'Ingia kwenye Akaunti / Staff PIN Login',
+          title: 'Ingia kwenye Akaunti',
         }, [
           createEl('span', { className: 'material-symbols-outlined text-[18px]' }, ['login']),
-          createEl('span', { className: 'hidden md:inline' }, ['Ingia (Login)']),
+          createEl('span', { className: 'hidden md:inline' }, ['Ingia']),
         ]),
 
-        createEl('a', {
+        // Show Admin Portal button ONLY if logged in as staff (not customer)
+        settings?.isAuthenticated && settings?.currentRole !== 'customer' ? createEl('a', {
           href: '#/admin',
           className: 'btn btn--ghost header-admin-link',
-          title: 'Nenda kwenye Dashibodi ya Mmiliki',
+          title: 'Nenda kwenye Dashibodi ya Staff',
         }, [
           createEl('span', { className: 'material-symbols-outlined text-[18px]' }, ['storefront']),
-          createEl('span', { className: 'hidden md:inline' }, ['Admin Portal']),
-        ]),
+          createEl('span', { className: 'hidden md:inline' }, ['Staff Portal']),
+        ]) : null,
 
         createEl('button', {
           type: 'button',

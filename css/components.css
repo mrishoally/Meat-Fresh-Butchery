@@ -1802,13 +1802,15 @@
 
 .auth-page-wrapper {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at 50% 0%, #fff5f5 0%, #f8fafc 65%, #f1f5f9 100%);
-  padding: var(--space-6) var(--space-4);
+  padding: clamp(var(--space-3), 3vw, var(--space-6)) clamp(var(--space-2), 2vw, var(--space-4));
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .auth-page-wrapper::before {
@@ -1841,21 +1843,24 @@
   margin: 0 auto;
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .auth-card-layout {
   display: grid;
   grid-template-columns: 1fr;
   background-color: #ffffff;
-  border-radius: var(--radius-3xl);
+  border-radius: var(--radius-2xl);
   border: 1px solid var(--color-border);
   box-shadow: 0 20px 45px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(112, 10, 18, 0.03);
   overflow: hidden;
+  width: 100%;
 }
 
 @media (min-width: 900px) {
   .auth-card-layout {
     grid-template-columns: 11fr 13fr;
+    border-radius: var(--radius-3xl);
   }
 }
 
@@ -1863,12 +1868,13 @@
 .auth-hero-side {
   background: linear-gradient(145deg, #700a12 0%, #54060c 60%, #380307 100%);
   color: #ffffff;
-  padding: var(--space-10) var(--space-8);
+  padding: clamp(var(--space-5), 4vw, var(--space-10)) clamp(var(--space-4), 4vw, var(--space-8));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  gap: var(--space-6);
 }
 
 .auth-hero-side::before {
@@ -1892,8 +1898,8 @@
 }
 
 .auth-hero-brand__icon {
-  width: 48px;
-  height: 48px;
+  width: clamp(40px, 8vw, 48px);
+  height: clamp(40px, 8vw, 48px);
   border-radius: var(--radius-xl);
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
@@ -1901,12 +1907,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  flex-shrink: 0;
 }
 
 .auth-hero-brand__title {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: clamp(1.15rem, 3vw, 1.4rem);
   font-weight: 800;
   color: #ffffff;
   line-height: 1.1;
@@ -1914,14 +1921,14 @@
 }
 
 .auth-hero-brand__sub {
-  font-size: var(--text-xs);
+  font-size: clamp(0.7rem, 2vw, var(--text-xs));
   color: rgba(255, 255, 255, 0.75);
 }
 
 .auth-hero-content {
   position: relative;
   z-index: 2;
-  margin: var(--space-8) 0;
+  margin: var(--space-4) 0;
 }
 
 .auth-hero-badge {
@@ -1934,22 +1941,22 @@
   border: 1px solid rgba(251, 191, 36, 0.4);
   color: #fef08a;
   font-family: var(--font-heading);
-  font-size: var(--text-xs);
+  font-size: clamp(0.7rem, 2vw, var(--text-xs));
   font-weight: 700;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .auth-hero-heading {
   font-family: var(--font-heading);
-  font-size: 2.1rem;
+  font-size: clamp(1.35rem, 4vw, 2.1rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.18;
   color: #ffffff;
   margin-bottom: var(--space-3);
 }
 
 .auth-hero-desc {
-  font-size: var(--text-sm);
+  font-size: clamp(0.8rem, 2vw, var(--text-sm));
   line-height: var(--leading-relaxed);
   color: rgba(255, 255, 255, 0.85);
 }
@@ -1957,55 +1964,51 @@
 .auth-hero-features {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2.5);
   position: relative;
   z-index: 2;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: var(--space-5);
+  padding-top: var(--space-4);
 }
 
 .auth-hero-feature-item {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  font-size: var(--text-xs);
+  gap: var(--space-2.5);
+  font-size: clamp(0.72rem, 2vw, var(--text-xs));
   color: rgba(255, 255, 255, 0.9);
 }
 
 .auth-hero-feature-icon {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #fef08a;
   flex-shrink: 0;
 }
 
 /* Auth Form Side */
 .auth-form-side {
-  padding: var(--space-8) var(--space-6);
+  padding: clamp(var(--space-5), 4vw, var(--space-10)) clamp(var(--space-4), 4vw, var(--space-10));
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-@media (min-width: 640px) {
-  .auth-form-side {
-    padding: var(--space-10) var(--space-10);
-  }
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .auth-header {
-  margin-bottom: var(--space-6);
+  margin-bottom: clamp(var(--space-4), 3vw, var(--space-6));
 }
 
 .auth-title {
   font-family: var(--font-heading);
-  font-size: 1.75rem;
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
   font-weight: 800;
   color: var(--color-text-main);
   letter-spacing: var(--tracking-snug);
@@ -2013,36 +2016,41 @@
 }
 
 .auth-subtitle {
-  font-size: var(--text-sm);
+  font-size: clamp(0.78rem, 2vw, var(--text-sm));
   color: var(--color-text-muted);
 }
 
 /* Auth Tab Bar (PIN vs Cloud Email Login) */
 .auth-tab-bar {
   display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
   background-color: var(--color-surface-subtle);
   border-radius: var(--radius-xl);
   padding: 4px;
-  margin-bottom: var(--space-6);
+  margin-bottom: clamp(var(--space-4), 3vw, var(--space-6));
   border: 1px solid var(--color-border-subtle);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .auth-tab-btn {
-  flex: 1;
+  flex: 1 1 130px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  padding: 0.65rem 0.85rem;
+  gap: var(--space-1.5);
+  padding: 0.6rem 0.65rem;
   border-radius: var(--radius-lg);
   font-family: var(--font-heading);
-  font-size: var(--text-xs);
+  font-size: clamp(0.7rem, 2.2vw, var(--text-xs));
   font-weight: 700;
   color: var(--color-text-muted);
   background: transparent;
   border: none;
   cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .auth-tab-btn--active {
@@ -2055,13 +2063,13 @@
 .auth-pin-display {
   display: flex;
   justify-content: center;
-  gap: var(--space-3);
-  margin: var(--space-4) 0 var(--space-6) 0;
+  gap: clamp(var(--space-2), 2vw, var(--space-3));
+  margin: var(--space-3) 0 var(--space-5) 0;
 }
 
 .auth-pin-dot {
-  width: 18px;
-  height: 18px;
+  width: clamp(14px, 3vw, 18px);
+  height: clamp(14px, 3vw, 18px);
   border-radius: 50%;
   border: 2px solid var(--color-border-hover);
   background-color: #ffffff;
@@ -2078,18 +2086,19 @@
 .auth-pin-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-  max-width: 320px;
-  margin: 0 auto var(--space-6) auto;
+  gap: clamp(var(--space-2), 2vw, var(--space-3));
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto clamp(var(--space-4), 3vw, var(--space-6)) auto;
 }
 
 .auth-pin-btn {
-  height: 56px;
+  height: clamp(44px, 7vw, 56px);
   border-radius: var(--radius-xl);
   background-color: #ffffff;
   border: 1px solid var(--color-border);
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   font-weight: 800;
   color: var(--color-text-main);
   cursor: pointer;
@@ -2098,6 +2107,7 @@
   justify-content: center;
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-xs);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .auth-pin-btn:hover {
@@ -2113,7 +2123,7 @@
 }
 
 .auth-pin-btn--action {
-  font-size: 1.1rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
   color: var(--color-text-muted);
   background-color: var(--color-surface-subtle);
 }
@@ -2121,7 +2131,8 @@
 /* Floating Input Group */
 .auth-input-field {
   position: relative;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3.5);
+  width: 100%;
 }
 
 .auth-input-field .material-symbols-outlined {
@@ -2130,7 +2141,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: var(--color-text-subtle);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   pointer-events: none;
   transition: color var(--transition-fast);
 }
@@ -2142,8 +2153,9 @@
 
 .auth-input-field input,
 .auth-input-field select {
-  padding-left: 46px;
+  padding-left: 44px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* Staff Quick Selector Chips */
@@ -2151,25 +2163,29 @@
   display: flex;
   gap: var(--space-2);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
   padding-bottom: var(--space-2);
   margin-bottom: var(--space-4);
+  max-width: 100%;
 }
 
 .auth-staff-chip {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: 0.45rem 0.85rem;
+  gap: var(--space-1.5);
+  padding: 0.4rem 0.75rem;
   border-radius: var(--radius-full);
   background-color: var(--color-surface-subtle);
   border: 1px solid var(--color-border);
   font-family: var(--font-heading);
-  font-size: var(--text-xs);
+  font-size: clamp(0.68rem, 2vw, var(--text-xs));
   font-weight: 700;
   color: var(--color-text-secondary);
   cursor: pointer;
   white-space: nowrap;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .auth-staff-chip:hover {
@@ -2187,13 +2203,20 @@
 /* Role Selector Grid for Register */
 .auth-role-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin-bottom: var(--space-5);
+  grid-template-columns: 1fr;
+  gap: var(--space-2.5);
+  margin-bottom: var(--space-4);
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .auth-role-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .auth-role-card {
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-3.5);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-border);
   background-color: #ffffff;
@@ -2217,7 +2240,7 @@
 
 .auth-role-title {
   font-family: var(--font-heading);
-  font-size: var(--text-sm);
+  font-size: clamp(0.75rem, 2vw, var(--text-sm));
   font-weight: 800;
   color: var(--color-text-main);
   display: flex;
@@ -2226,15 +2249,15 @@
 }
 
 .auth-role-desc {
-  font-size: var(--text-xs);
+  font-size: clamp(0.68rem, 1.8vw, var(--text-xs));
   color: var(--color-text-muted);
 }
 
 /* Auth Footer Links */
 .auth-footer {
-  margin-top: var(--space-6);
+  margin-top: clamp(var(--space-4), 3vw, var(--space-6));
   text-align: center;
-  font-size: var(--text-sm);
+  font-size: clamp(0.78rem, 2vw, var(--text-sm));
   color: var(--color-text-muted);
 }
 
@@ -2254,7 +2277,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin: var(--space-5) 0;
+  margin: var(--space-4) 0;
   color: var(--color-text-subtle);
   font-size: var(--text-xs);
   text-transform: uppercase;
@@ -2268,3 +2291,4 @@
   height: 1px;
   background-color: var(--color-border-subtle);
 }
+

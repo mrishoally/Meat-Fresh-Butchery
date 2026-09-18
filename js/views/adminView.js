@@ -26,6 +26,19 @@ export function renderAdminView(state, dispatch) {
   clearEl(root);
 
   const { inventory, orders, currentView, toast, settings, adminReceiptOrder, isManualOrderModalOpen } = state;
+
+  // Role Access Guard: Customers and unauthenticated users cannot access Staff Dashboard
+  if (settings?.currentRole === 'customer' || !settings?.isAuthenticated) {
+    setTimeout(() => {
+      dispatch({
+        type: 'SHOW_TOAST',
+        payload: { message: 'Huna ruhusa ya kufikia sehemu ya Staff. Tafadhali ingia kama mfanyakazi.', type: 'warning', id: Date.now() }
+      });
+      window.location.hash = settings?.isAuthenticated ? '#/shop' : '#/login';
+    }, 0);
+    return;
+  }
+
   const currency = settings?.currency || 'TZS';
 
   // Role details
@@ -63,7 +76,7 @@ export function renderAdminView(state, dispatch) {
           createEl('div', {}, [
             createEl('span', { className: 'brand-logo__title' }, [settings?.storeName || 'Nyama Fresh']),
             createEl('div', { className: 'flex items-center gap-1.5' }, [
-              createEl('span', { className: 'admin-badge' }, [roleNameMap[currentRole] || 'Store Manager']),
+              createEl('span', { className: 'admin-badge' }, [roleNameMap[currentRole] || 'Staff Manager']),
               createEl('span', { className: 'text-[10px] text-amber-200 font-bold bg-black/30 px-1.5 py-0.5 rounded' }, [
                 `📍 ${activeBranch.name}`
               ]),
@@ -101,7 +114,7 @@ export function renderAdminView(state, dispatch) {
         ]) : null,
       ]),
 
-      // Right: Branch Quick Switcher & Storefront Link
+      // Right: Branch Quick Switcher & Logout
       createEl('div', { className: 'admin-header__actions flex items-center gap-2' }, [
         // Branch selector if multi-branch enabled
         branches.length > 1 ? createEl('select', {
@@ -112,18 +125,21 @@ export function renderAdminView(state, dispatch) {
           `📍 ${b.name}`
         ]))) : null,
 
-        createEl('a', {
-          href: '#/shop',
-          className: 'btn btn--secondary btn--sm',
-        }, [
-          createEl('span', { className: 'material-symbols-outlined text-[16px]' }, ['visibility']),
-          createEl('span', {}, ['Tazama Duka la Wateja ↗']),
-        ]),
-
-        createEl('a', {
-          href: '#/login',
-          className: 'btn btn--ghost btn--sm text-amber-200 hover:text-white hover:bg-white/10',
-          title: 'Badili Mhudumu au Ingia kwa Akaunti Nyingine',
+        createEl('button', {
+          type: 'button',
+          className: 'btn btn--ghost btn--sm text-amber-200 hover:text-white hover:bg-white/10 flex items-center gap-1',
+          title: 'Toka kwenye mfumo wa Staff',
+          onClick: () => {
+            dispatch({
+              type: 'UPDATE_SETTINGS',
+              payload: { isAuthenticated: false, currentRole: 'customer', currentStaffName: '', currentUserEmail: '', userType: 'guest' }
+            });
+            dispatch({
+              type: 'SHOW_TOAST',
+              payload: { message: 'Umeondoka kwenye portal ya Staff kikamilifu.', type: 'info', id: Date.now() }
+            });
+            window.location.hash = '#/login';
+          }
         }, [
           createEl('span', { className: 'material-symbols-outlined text-[16px]' }, ['logout']),
           createEl('span', { className: 'hidden sm:inline' }, ['Toka (Logout)']),
