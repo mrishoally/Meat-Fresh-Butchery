@@ -21,6 +21,9 @@ export const ROUTES = {
 export function getViewFromHash(hash) {
   const cleanHash = hash.replace(/^#\/?/, '').toLowerCase();
 
+  if (cleanHash === 'shop' || cleanHash === 'customer' || cleanHash === 'store') {
+    return ROUTES.SHOP;
+  }
   if (cleanHash === 'login' || cleanHash === 'auth/login') {
     return ROUTES.LOGIN;
   }
@@ -39,7 +42,7 @@ export function getViewFromHash(hash) {
   if (cleanHash === 'admin/settings') {
     return ROUTES.ADMIN_SETTINGS;
   }
-  return ROUTES.SHOP;
+  return ROUTES.LOGIN;
 }
 
 /**

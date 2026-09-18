@@ -105,7 +105,7 @@ const state = {
   orders: [],
   cart: [],
   settings: { ...DEFAULT_SETTINGS },
-  currentView: 'customer', // 'customer' | 'admin' | 'admin-orders' | 'admin-settings'
+  currentView: 'login', // 'login' | 'customer' | 'admin' | 'admin-orders' | 'admin-settings'
   searchQuery: '',
   selectedCategory: 'All',
   orderFilterStatus: 'all', // 'all' | 'pending' | 'fulfilled'
@@ -285,7 +285,7 @@ function reducer(action) {
     }
 
     case 'SET_VIEW': {
-      state.currentView = action.payload || 'customer';
+      state.currentView = action.payload || 'login';
       break;
     }
 
